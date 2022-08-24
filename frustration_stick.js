@@ -6,50 +6,55 @@ var ctx = canvas.getContext("2d");
  * @author なつき
  */
 
+const haba =20;
+const kankaku = canvas.height/5;//150
+const nagasa = 700;
+const sukima = 200;
+
  ctx.beginPath();
- ctx.rect(0, 0, 20, canvas.height);
+ ctx.rect(0, 0, haba, canvas.height);
  ctx.fillStyle = "#0095DD";
  ctx.fill();
  ctx.closePath();
 
  ctx.beginPath();
- ctx.rect(canvas.width-20, 0, 20, canvas.height);
+ ctx.rect(canvas.width-haba, 0, haba, canvas.height);
  ctx.fillStyle = "#0095DD";
  ctx.fill();
  ctx.closePath();
 
  ctx.beginPath();
- ctx.rect(200, 0, 700, 20);
+ ctx.rect(sukima, 0, nagasa, haba);
  ctx.fillStyle = "#0095DD";
  ctx.fill();
  ctx.closePath();
 
  ctx.beginPath();
- ctx.rect(0, 150, 700, 20);
+ ctx.rect(0, kankaku, nagasa, haba);
  ctx.fillStyle = "#0095DD";
  ctx.fill();
  ctx.closePath();
 
  ctx.beginPath();
- ctx.rect(200, 300, 700, 20);
+ ctx.rect(sukima, kankaku*2, nagasa, haba);
  ctx.fillStyle = "#0095DD";
  ctx.fill();
  ctx.closePath();
 
  ctx.beginPath();
- ctx.rect(0, 450, 700, 20);
+ ctx.rect(0, kankaku*3, nagasa, haba);
  ctx.fillStyle = "#0095DD";
  ctx.fill();
  ctx.closePath();
 
  ctx.beginPath();
- ctx.rect(200, 600, 700, 20);
+ ctx.rect(sukima, kankaku*4, nagasa, haba);
  ctx.fillStyle = "#0095DD";
  ctx.fill();
  ctx.closePath();
 
  ctx.beginPath();
- ctx.rect(0, canvas.height-20, 700, 20);
+ ctx.rect(0, canvas.height-haba, nagasa, haba);
  ctx.fillStyle = "#0095DD";
  ctx.fill();
  ctx.closePath();
