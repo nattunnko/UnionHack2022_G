@@ -1,73 +1,52 @@
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
+window.addEventListener("load", init);
+function init(){
+  // Stageオブジェクトを作成
+  var stage = new createjs.Stage("myCanvas");
 
-//自機の定義
-const playerHeight = 30;
-const playerWidth = 30;
+  const player1_color = "#0067C0"
+  const goal_color = "#FF0000"
+  const height = stage.canvas.height;
+  const width = stage.canvas.width;
 
-//自機の初期位置の定義
-let playerX = (canvas.width/2);
-let playerY = (canvas.height/2);
+  //自機を作成
+  var player1 = new createjs.Shape(); 
+  player1.graphics.beginFill(player1_color);
+  player1.graphics.drawCircle(0, 0, 30);
+  stage.addChild(player1);
 
-//ゴールの定義
-const goalHeight = 100;
-const goalWidth = 100;
+  //ゴールの作成
+  var goal = new createjs.Shape();
+  goal.graphics.beginFill(goal_color);
+  goal.graphics.moveTo(400, 400);
+  goal.graphics.lineTo(500, 400);
+  goal.graphics.lineTo(500, 500);
+  goal.graphics.lineTo(400, 500);
+  goal.graphics.lineTo(400, 400);
+  stage.addChild(goal);
 
-//ゴールの位置の定義
-let goalX = (canvas.width/3); 
-let goalY =(canvas.height/3);
+  //tickイベントの登録
+  createjs.Ticker.addEventListener("tick", handleTick);
 
-//マウスの動作を監視
-document.addEventListener("mousemove", mouseMoveHandler, false);
+  function handleTick(){
+    //マウス座標の取得
+    var mx = stage.mouseX;
+    var my = stage.mouseY;
+    //自機をマウスに追従
+    player1.x = mx;
+    player1.y = my;
 
-//自機の動きをマウスの動きと紐づけ
-function mouseMoveHandler(e){
-    const relativeX = e.clientX - canvas.offsetLeft;
-    const relativeY = e.clientY - canvas.offsetTop;
-    if(relativeX > 0 && relativeX < canvas.width){
-        playerX = relativeX - playerWidth/2;
+    //ゴールと自機の相対距離
+    var point = player1.localToLocal(0, 0, goal);
+    //衝突しているか調べる
+    var isHit = goal.hitTest(point.x, point.y);
+
+    //当たっていたらゴールを呼びだす
+    if(isHit == true){
+        document.location.reload();
+        clearInterval(interval);
     }
-    if(relativeY > 0 && relativeY < canvas.height){
-        playerY = relativeY - playerHeight/2;
-    }
+    
+    //画面の更新
+    stage.update();
+  }
 }
-
-//自機を実装
-function drawPlayer(){
-    ctx.beginPath()
-    ctx.rect(playerX, playerY, playerWidth, playerHeight);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
-}
-
-//ゴールを実装
-function drawGoal(){
-    ctx.beginPath();
-    ctx.rect(goalX, goalY, goalWidth, goalHeight);
-    ctx.fillStyle = "#FF0000";
-    ctx.fill();
-    ctx.closePath();
-}
-
-//ゴールしたか検知
-function goalJudge(){
-    //プレイヤーの右端がゴールの右端以上　かつ　プレイヤーの左端がゴールの右端以内であればY座標の判定に入る
-    if( (playerX + playerWidth) >= goalX && playerX <= (goalX + goalWidth) ) {
-        // プレイヤーの下端がゴールの上端以上 かつ プレイヤーの上端がゴールの下端以内であればヒットしているとみなす
-        if( (playerY + playerHeight) >= goalY && playerY <= (goalY + goalHeight) ) {
-          alert("GOAL!");
-          document.location.reload();
-          clearInterval(interval);
-        }
-      }
-    }
-
-function draw(){
-    ctx.clearRect(0, 0, 900, 750); //各フレームの前にキャンパス消去
-    drawPlayer();                  //canvasで制御しようとしたらうまくいかなかったので取り敢えず直接代入
-    drawGoal();
-    goalJudge();
-}
-//描画ループの定義
-var interval = setInterval(draw, 5);
