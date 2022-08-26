@@ -60,13 +60,13 @@ function init() {
     stage.addChild(tri3);
 
     //三角形
-    var tri3 = new createjs.Shape();
-    tri3.graphics.beginFill(stage_color);
-    tri3.graphics.moveTo(width,height*4/5);
-    tri3.graphics.lineTo(width *5/6,height*4/5 - height/12);
-    tri3.graphics.lineTo(width,height*4/5 - height*2/12);
-    tri3.graphics.lineTo(width,height*4/5);
-    stage.addChild(tri3);
+    var tri4 = new createjs.Shape();
+    tri4.graphics.beginFill(stage_color);
+    tri4.graphics.moveTo(width,height*4/5);
+    tri4.graphics.lineTo(width *5/6,height*4/5 - height/12);
+    tri4.graphics.lineTo(width,height*4/5 - height*2/12);
+    tri4.graphics.lineTo(width,height*4/5);
+    stage.addChild(tri4);
 
     
     //円
@@ -129,8 +129,125 @@ function init() {
     rect8.x = width*2/3;
     stage.addChild(rect8); // 表示リストに追加
 
+
+    /**
+     * ゴール判定
+     * by　参木
+     */
+
+     const player1_color = "#0067C0"
+     const goal_color = "#FF0000"
+   
+     //自機を作成
+     var player1 = new createjs.Shape(); 
+     player1.graphics.beginFill(player1_color);
+     player1.graphics.drawCircle(0, 0, 5);
+     stage.addChild(player1);
+   
+     //ゴールの作成
+     var goal = new createjs.Shape();
+     goal.graphics.beginFill(goal_color);
+     goal.graphics.moveTo(400, 400);
+     goal.graphics.lineTo(500, 400);
+     goal.graphics.lineTo(500, 500);
+     goal.graphics.lineTo(400, 500);
+     goal.graphics.lineTo(400, 400);
+     stage.addChild(goal);
+   
+     //tickイベントの登録
+     createjs.Ticker.addEventListener("tick", handleTick);
+   
+     function handleTick(){
+       //マウス座標の取得
+       var mx = stage.mouseX;
+       var my = stage.mouseY;
+       //自機をマウスに追従
+       player1.x = mx;
+       player1.y = my;
+   
+       //ゴールと自機の相対距離
+       var point = player1.localToLocal(0, 0, goal);
+       //衝突しているか調べる
+       var isHit = goal.hitTest(point.x, point.y);
+   
+       //当たっていたらゴールを呼びだす
+       if(isHit == true){
+           //document.location.reload();
+           location = 'https://www.google.com';
+           clearInterval(interval);
+       }
+
+    /**
+     * 当たり判定
+     * by　なつき
+     */
+    
+    // 四角形からみた相対座標に変換する
+    var point_rect1 = rect1.globalToLocal(stage.mouseX, stage.mouseY);
+    // 四角形とドットがあたっているかを調べる
+    var isHit_rect1 = rect1.hitTest(point_rect1.x, point_rect1.y);
+
+    var point_rect2 = rect2.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect2 = rect2.hitTest(point_rect2.x, point_rect2.y);
+
+    var point_rect3 = rect3.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect3 = rect3.hitTest(point_rect3.x, point_rect3.y);
+
+    var point_rect4 = rect4.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect4 = rect4.hitTest(point_rect4.x, point_rect4.y);
+
+    var point_rect5 = rect5.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect5 = rect5.hitTest(point_rect5.x, point_rect5.y);
+
+    var point_rect6 = rect6.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect6 = rect6.hitTest(point_rect6.x, point_rect6.y);
+
+    var point_rect7 = rect7.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect7 = rect7.hitTest(point_rect7.x, point_rect7.y);
+
+    var point_rect8 = rect8.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect8 = rect8.hitTest(point_rect8.x, point_rect8.y);
+
+    var point_tri1 = tri1.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_tri1 = tri1.hitTest(point_tri1.x, point_tri1.y);
+
+    var point_tri2 = tri2.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_tri2 = tri2.hitTest(point_tri2.x, point_tri2.y);
+
+    var point_tri3 = tri3.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_tri3 = tri3.hitTest(point_tri3.x, point_tri3.y);
+
+    var point_tri4 = tri4.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_tri4 = tri4.hitTest(point_tri4.x, point_tri4.y);
+
+    var point_circle1 = circle1.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_circle1 = circle1.hitTest(point_circle1.x, point_circle1.y);
+
+    var point_circle2 = circle2.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_circle2 = circle2.hitTest(point_circle2.x, point_circle2.y);
+
+    // あたっていれば
+    if (isHit_rect1||isHit_rect2||isHit_rect3||isHit_rect4||isHit_rect5||isHit_rect6||isHit_rect7||isHit_rect8
+        ||isHit_tri1||isHit_tri2||isHit_tri3||isHit_tri4||isHit_circle1||isHit_circle2) {
+            player1.graphics.beginFill("red").drawRect(0, 0, 20,10);
+    }
+
+    
+   /* 
+    var allObj = new Array({},rect1,rect2,rect3,rect4,rect5,rect6,rect7,rect8,tri1,tri2,tri3,circle1,circle2);
+
+    for(var obj in allObj){
+        var point = obj.globalToLocal(stage.mouseX, stage.mouseY);
+        var isHit = obj.hitTest(point.x, point.y);
+        if(isHit){
+            alert("GOAL!");
+        }
+    }
+    */
+    
     // Stageの描画を更新
     stage.update();
+    }
 }
 
 
@@ -191,4 +308,4 @@ const sukima = 200;
  ctx.fillStyle = "#0095DD";
  ctx.fill();
  ctx.closePath();
- */
+*/
