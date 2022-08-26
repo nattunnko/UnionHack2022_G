@@ -1,0 +1,36 @@
+.myCanvas{
+    background-color: aliceblue;
+    width: 900px;
+    height: 900px;
+    position: static;
+}
+
+.status{
+    background-color: darkorange;
+    width: 300px;
+    height: 900px;
+    position: absolute;
+    left: 900px;
+    top: 0px;
+}
+
+.stage{
+    font-size: 20px;
+}
+
+.time{
+    font-size: 20px;
+}
+
+.life{
+    font-size: 40px;
+}
+
+.item{
+    font-size: 40px;
+}
+
+.key-item{
+    font-size: 100px;
+    padding: 100px 50px 100px 50px;
+}

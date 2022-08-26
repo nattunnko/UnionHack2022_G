@@ -4,17 +4,33 @@
   
   <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
   <title>Gamedev Canvas Workshop</title>
-  <style>
-    * { padding: 0; margin: 0; }
-    canvas { background: #eee; display: block; margin: 0 auto; }
-  </style>
+  <link href="style.css" rel="stylesheet" type"text/css">
 </head>
 <body>
 
-<canvas id="myCanvas" width="900" height="900"></canvas>
+<div class="status">
+  <div class="stage">
+    <p>ステージ数</p>
+  </div>
+  <div class="time">
+    <p>経過時間</p>
+  </div>
+  <div class="life">
+    <p>残りライフ数</p>
+  </div>
+  <div class="item">
+    <p>アイテム</p>
+  </div>
+  <div class="key-item">
+    <p>☆×n</p>
+  </div>
+</div>
 
-<script src="frustration_stick.js"></script>
+<canvas id = "myCanvas" width="900" height="900">
   
+</canvas>
+
+<script src="frustration_stick.js"></script> 
 
 </body>
 </html>
