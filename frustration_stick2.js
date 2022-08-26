@@ -1,8 +1,36 @@
-window.addEventListener("load", init);
+window.addEventListener('load' , init);
     function init() {
       // Stageオブジェクトを作成。表示リストのルートになります。
       var stage = new createjs.Stage("myCanvas");
 
+      createjs.Ticker.addEventListener("tick", handleTick);
+
+      /**
+     * ゴール判定
+     * by　参木
+     */
+
+     const player1_color = "#0067C0"
+     const goal_color = "Red"
+   
+     //自機を作成
+     var player1 = new createjs.Shape(); 
+     player1.graphics.beginFill(player1_color)
+     .drawCircle(0, 0, 20);
+     stage.addChild(player1);
+     player1.x = 40;
+     player1.y = 580;//スタート位置
+   
+     //ゴールの作成
+     var goal = new createjs.Shape();
+        goal.graphics.beginFill(goal_color) 
+        .drawRect(0, 0,20 , 20); // 長方形を描画
+        stage.addChild(goal); // 表示リストに追加
+        goal.x = 780;
+        goal.y = 580;
+   
+
+      function handleTick(){
       const stage_color = "Green";
       const c_width = stage.canvas.width;
       const c_height = stage.canvas.height;
@@ -107,6 +135,59 @@ window.addEventListener("load", init);
         stage.addChild(rect24); // 表示リストに追加
         rect24.x = c_width *11/14;
         rect24.y = c_height*13/24;
+
+    
+    
+     //tickイベントの登録
+     //createjs.Ticker.addEventListener("tick", handleTick);
+   
+     //function handleTick(){
+       //マウス座標の取得
+       var mx = stage.mouseX;
+       var my = stage.mouseY;
+       //自機をマウスに追従
+       player1.x = mx;
+       player1.y = my;
+   
+       //ゴールと自機の相対距離
+       var point = goal.globalToLocal(stage.mouseX, stage.mouseY);
+       //衝突しているか調べる
+       var isHit = goal.hitTest(point.x, point.y);
+   
+       //当たっていたらゴールを呼びだす
+       if(isHit == true){
+           //document.location.reload();
+           location = 'https://www.google.com';
+           clearInterval(interval);
+       }
+
+    /**
+     * 当たり判定
+     */
+    var point_rect18 = rect18.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect18 = rect18.hitTest(point_rect18.x, point_rect18.y);
+
+    var point_rect19 = rect19.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect19 = rect19.hitTest(point_rect19.x, point_rect19.y);
+
+    var point_rect20 = rect20.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect20 = rect20.hitTest(point_rect20.x, point_rect20.y);
+
+    var point_rect22 = rect22.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect22 = rect22.hitTest(point_rect22.x, point_rect22.y);
+
+    var point_rect23 = rect23.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect23 = rect23.hitTest(point_rect23.x, point_rect23.y);
+
+    var point_rect24 = rect24.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_rect24 = rect24.hitTest(point_rect24.x, point_rect24.y);
+    
+    // あたっていれば
+    if (isHit_1||isHit_2||isHit_3||isHit_4||isHit_5||isHit_6||isHit_7||isHit_8
+      ||isHit_9||isHit_10||isHit_11||isHit_12||isHit_13||isHit_14||isHit_15||isHit_16
+      ||isHit_17||isHit_rect18||isHit_rect19||isHit_rect20||isHit_21||isHit_rect22||isHit_rect23||isHit_rect24) {
+          player1.graphics.beginFill("red").drawRect(0, 0, 20,10);
+    }
     
       /*
       // 点を作成します
@@ -164,4 +245,4 @@ window.addEventListener("load", init);
         // Stageの描画を更新
         stage.update();
       }
-    
+    }
