@@ -1,0 +1,11 @@
+button{
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 150px;
+  background-color: #FEFF68;
+  border-radius: 20px;
+}
