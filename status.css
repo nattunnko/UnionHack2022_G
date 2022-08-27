@@ -8,8 +8,9 @@
 .status{
     text-align: center;
     background-color: #feff68;
-    width: 300px;
+    width: 350px;
     height: 600px;
+    font-size: 30px;
     position: absolute;
     right: 0px;
     top: 0px;
@@ -17,44 +18,66 @@
 
 .stage{
     float: left;
-    font-size: 20px;
-    padding: 0.5em 1.5em ;
+    font-size: 30px;
+    color: #fff;
+    padding: 1px 1.5em ;
     margin: 0em 2 2 2;
     font-weight: bold;
-    border: solid 1px #000000;
+    background-color: #3660a1;
+    border: solid 3px #0000CD;
 }
 
 .time{
-    font-size: 20px;
-    padding: 0.5em 1em;
+    color: #fff;
+    padding: 1px 1px;
     margin: 0em 2 2 2;
     font-weight: bold;
-    border: solid 1px #000000;
+    background-color: #82aded;
+    border: solid 3px #0000CD;
 
 }
 
 .key-item{
-    margin-top: 70px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border: solid 1px #000000;
-    background-color: white;
+    margin:80px 25px;
+    padding: 0px 0px 0px 20px;
+    position: relative;
+    border: solid 2px #000;
+    border-radius: 3px 0 3px 0;
+}
+.key-item:before,.key-item:after
+{
+    content: '';
+    position: absolute;
+    width:45px;
+    height: 45px;
+    border: solid 2px #000;
+    border-radius: 50%;
+}
+.key-item:after {
+    top:-30px;
+    left:-30px;
+    background-color: #233B6C
+}
+.key-item:before {
+    bottom:-30px;
+    right:-30px;
+    background-color: #B3424A
 }
 
 .key-item .star-title{
-  font-size: 50px;
   float: left;
-  background: #5fb3f5;
-  padding: 4px;
+  background: #FFFFF0;
+  margin-left: -20px;
+  padding: 20px 0px 20px 0px;
   text-align: center;
-  color: #FFF;
-  letter-spacing: 0.05em;
+  letter-spacing: 10px;
+
 }
 
 .key-item p {
-  font-size: 50px;
   margin: 0;
-  padding: 4px;
+  padding: 20px 0px 20px 0px;
+  background: #FAEBD7;
 }
 
 .restart-button{
@@ -64,13 +87,15 @@
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   font-size: 40px;
+  font-weight: bold;
   margin: 20px 0px;
   padding: 20px 0px;
   background-color: orange;
   white-space: nowrap;
-  border-radius: 10px;
-  border: solid 1px #000000;
+  border-radius: 0px 80px 0px 80px;
+  border: solid 2px #000000;
   background-color: orange;
+
 }
 
 .stop-button{
@@ -81,10 +106,11 @@
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   font-size: 40px;
+  font-weight: bold;
   margin: 20px 0px;
   padding: 20px 0px;
   white-space: nowrap;
-  border-radius: 10px;
-  border: solid 1px #000000;
+  border-radius: 100px 0px 100px 0px;
+  border: solid 2px #000000;
   background-color: darkorange;
 }
