@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
   <title>Gamedev Canvas Workshop</title>
+  <link rel="stylesheet" href="status.css">
   <style>
     * { padding: 0; margin: 0; }
     canvas { background: #eee; display: block; margin: 0 auto; }
@@ -11,9 +12,40 @@
 </head>
 <body>
 
-<canvas id="myCanvas" width="800" height="600"></canvas>
+
+  <canvas id="myCanvas" width="800" height="600"></canvas>
 
 <script src="frustration_stick.js"></script>
+  <div class="status">
+    <div class="stage">
+      <!-- ステージ数 -->
+      <p>1</p>
+    </div>
+
+    <div class="time">
+      <!-- 経過時間 -->
+      <p>00:00</p>
+    </div>
+
+    <div id="star" class="key-item">
+      <div class="star-title">&nbsp;★×</div>
+      <p id = star-item>0</p>
+    </div>
+
+    <div class="restart">
+      <button class="restart-button" onclick="location.href='./index.html'">
+        　はじめから　
+      </button>
+    </div>
+
+    <div class="stop">
+      <button class="stop-button" onclick="location.href='./start-screen.html'">
+        　　やめる　　
+      </button>
+    </div>
+</div>
+
+
   
 
 </body>

@@ -1,16 +1,50 @@
 window.addEventListener("load", init);
+
 function init() {
   // Stageオブジェクトを作成。表示リストのルートになります。
   var stage = new createjs.Stage("myCanvas");
 
   const keyitem_color ="#000000"
+  //var ready = false; //startしてるかの判定
 
   //複数の星との当たり判定のために配列を作成
   var keyitemList = [];
   let keyitemNumber = 0;
 
-  //空アイテムを配置
+  var star_html = document.getElementById('star-item'); 
+
+  var button = new createjs.Container();
+    button.x = 650;
+    button.y = 550;
+    stage.addChild(button);
+
+    var bg = new createjs.Shape();
+      bg.graphics
+              .setStrokeStyle(1)
+              .beginStroke("#563d7c")
+              .beginFill("white")
+              .drawRoundRect(0, 0, 100, 40, 4);
+      button.addChild(bg);
+
+    var start_str = new createjs.Text("START","24px serif","Red");
+    start_str.x = 50;
+    start_str.y = 20; 
+    start_str.textAlign = "center";
+    start_str.textBaseline = "middle";
+    button.addChild(start_str);
+
+    button.addEventListener("click",game);
+    // 時間経過のイベント
+    createjs.Ticker.addEventListener("tick", handleTick);
+    function handleTick() {
+      // Stageの描画を更新
+      stage.update();
+    }
   
+
+  function game(){
+
+   stage.removeChild(button);
     //空アイテムの実装
     var keyitem1 = new createjs.Shape();
     keyitem1.graphics.beginFill(keyitem_color);
@@ -38,9 +72,7 @@ function init() {
     //配列に保存
     keyitemList = [keyitem1,keyitem2,keyitem3];
 
-    //ステータス画面に現在とった星の数を表示
     
-    document.getElementById("star").insertAdjacentHTML('beforeend',String(keyitemNumber));
   
 
   const stage_color = "Green"//障害物の色 
@@ -177,6 +209,39 @@ function init() {
     rect9.x = 400;
     stage.addChild(rect9); // 表示リストに追加
 
+    const haba = 5;
+    //canvasの縁の判定
+    var edge1 = new createjs.Shape();
+    edge1.graphics.beginFill(stage_color);
+    edge1.graphics.drawRect(0, 0, haba, height); 
+    edge1.y = 0;
+    edge1.x = 0;
+    stage.addChild(edge1);
+
+    //canvasの縁の判定
+    var edge2 = new createjs.Shape();
+    edge2.graphics.beginFill(stage_color);
+    edge2.graphics.drawRect(0, 0, width, haba); 
+    edge2.y = 0;
+    edge2.x = 0;
+    stage.addChild(edge2);
+
+     //canvasの縁の判定
+     var edge3 = new createjs.Shape();
+     edge3.graphics.beginFill(stage_color);
+     edge3.graphics.drawRect(0, 0, haba, height); 
+     edge3.y = 0;
+     edge3.x = width-haba;
+     stage.addChild(edge3);
+
+     //canvasの縁の判定
+     var edge4 = new createjs.Shape();
+     edge4.graphics.beginFill(stage_color);
+     edge4.graphics.drawRect(0, 0, width, haba); 
+     edge4.y = height-haba;
+     edge4.x = 0;
+     stage.addChild(edge4);
+    
 
     /**
      * ゴール判定
@@ -189,15 +254,15 @@ function init() {
      //自機を作成
      var player1 = new createjs.Shape(); 
      player1.graphics.beginFill(player1_color);
-     player1.graphics.drawCircle(0, 0, 5);
+     player1.graphics.drawCircle(0, 0, 10);
      stage.addChild(player1);
    
      //ゴールの作成
      var goal = new createjs.Shape();
      goal.graphics.beginFill(goal_color);
      goal.graphics.drawRect(0,0,20,20);
-     goal.x = 0;
-     goal.y = 580;
+     goal.x = 0 +haba;
+     goal.y = 580 -haba;
      stage.addChild(goal);
    
      //tickイベントの登録
@@ -239,8 +304,12 @@ function init() {
         if(isHit == true){
           keyitem.graphics.clear();
           keyitemNumber++;
+          //ステータス画面に現在とった星の数を表示
+            
+            star_html.innerHTML = keyitemNumber;
         }
     }
+    
 
     /**
      * 当たり判定
@@ -294,9 +363,21 @@ function init() {
     var point_circle2 = circle2.globalToLocal(stage.mouseX, stage.mouseY);
     var isHit_circle2 = circle2.hitTest(point_circle2.x, point_circle2.y);
 
+    var point_edge1 = edge1.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_edge1 = edge1.hitTest(point_edge1.x, point_edge1.y);
+
+    var point_edge2 = edge2.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_edge2 = edge2.hitTest(point_edge2.x, point_edge2.y);
+
+   
+
+    var point_edge4 = edge4.globalToLocal(stage.mouseX, stage.mouseY);
+    var isHit_edge4 = edge4.hitTest(point_edge4.x, point_edge4.y);
+
     // あたっていれば
     if (isHit_rect1||isHit_rect2||isHit_rect3||isHit_rect4||isHit_rect5||isHit_rect6||isHit_rect7||isHit_rect8||isHit_rect9
-        ||isHit_tri1||isHit_tri2||isHit_tri3||isHit_tri4||isHit_circle1||isHit_circle2) {
+        ||isHit_tri1||isHit_tri2||isHit_tri3||isHit_tri4||isHit_circle1||isHit_circle2
+        ||isHit_edge1||isHit_edge2||isHit_edge4) {
             //player1.graphics.beginFill("red").drawRect(0, 0, 20,10);
             location = "result-screen.html";
     }
@@ -315,8 +396,12 @@ function init() {
     */
     
     // Stageの描画を更新
+       
     stage.update();
+       
     }
+}
+
 }
 
 
