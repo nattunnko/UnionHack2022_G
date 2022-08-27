@@ -7,34 +7,35 @@
   <title>Gamedev Canvas Workshop</title>
   <link rel="stylesheet" href="status.css">
 </head>
-<body >
+<body>
+  <div class="status">
+      <div class="stage">
+        <!-- ステージ数 -->
+        <p>1</p>
+      </div>
 
-<div class="status">
-  <div class="line1">
-    <div class="stage">
-      <!-- ステージ数 -->
-      <p>1</p>
-    </div>
-    <div class="time">
-      <!-- 経過時間 -->
-      <p>00:00</p>
-    </div>
+      <div class="time">
+        <!-- 経過時間 -->
+        <p>00:00</p>
+      </div>
 
-  <div id="star" class="key-item">
-    <div class="star-title">★×</div>
-    <p>n</p>
+      <div id="star" class="key-item">
+        <div class="star-title">&nbsp;★×</div>
+        <p>n</p>
+      </div>
+
+      <div class="restart">
+        <button class="restart-button" onclick="location.href='https://www.google.com/'">
+          　はじめから　
+        </button>
+      </div>
+
+      <div class="stop">
+        <button class="stop-button" onclick="location.href='https://www.google.com/'">
+          　　やめる　　
+        </button>
+      </div>
   </div>
-
-<div class="restart">
-  <button class="restart-button" onclick="location.href='https://www.google.com/'">
-    　はじめから　
-  </button>
-</div>
-
-<div class="stop">
-  <button class="stop-button" onclick="location.href='https://www.google.com/'">
-    　　やめる　　
-  </button>
 
 <canvas id = "myCanvas">
 
