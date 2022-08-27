@@ -5,6 +5,9 @@ window.addEventListener('load' , init);
 
       createjs.Ticker.addEventListener("tick", handleTick);
 
+      let keyitemNumber = 0;
+      const keyitem_color ="#000000"
+
       /**
      * ゴール判定
      * by　参木
@@ -28,6 +31,37 @@ window.addEventListener('load' , init);
         stage.addChild(goal); // 表示リストに追加
         goal.x = 780;
         goal.y = 580;
+
+    //空アイテムの実装
+    var keyitem1 = new createjs.Shape();
+    keyitem1.graphics.beginFill(keyitem_color);
+    keyitem1.graphics.drawPolyStar(0, 0, 20, 5, 0.6, -90);
+    stage.addChild(keyitem1);
+    keyitem1.x = 400;
+    keyitem1.y = 40;
+
+    //空アイテムの実装
+    var keyitem2 = new createjs.Shape();
+    keyitem2.graphics.beginFill(keyitem_color);
+    keyitem2.graphics.drawPolyStar(0, 0, 20, 5, 0.6, -90);
+    stage.addChild(keyitem2);
+    keyitem2.x = 730;
+    keyitem2.y = 270;
+
+    //空アイテムの実装
+    var keyitem3 = new createjs.Shape();
+    keyitem3.graphics.beginFill(keyitem_color);
+    keyitem3.graphics.drawPolyStar(0, 0, 20, 5, 0.6, -90);
+    stage.addChild(keyitem3);
+    keyitem3.x = 250;
+    keyitem3.y = 565;
+
+    //配列に保存
+    keyitemList = [keyitem1,keyitem2,keyitem3];
+
+     //ステータス画面に現在とった星の数を表示
+    
+     document.getElementById("star").insertAdjacentHTML('beforeend',String(keyitemNumber));
    
 
       function handleTick(){
@@ -155,11 +189,30 @@ window.addEventListener('load' , init);
        var isHit = goal.hitTest(point.x, point.y);
    
        //当たっていたらゴールを呼びだす
-       if(isHit == true){
-           //document.location.reload();
-           location = 'https://www.google.com';
-           clearInterval(interval);
+       if(keyitemNumber == 3){
+        if(isHit == true){
+            //document.location.reload();
+            location = 'https://www.google.com';
+            clearInterval(interval);
+        }
        }
+
+       // 複数のアイテムとのアタリ判定をfor文でチェックする
+    for (var i = 0; i < keyitemList.length; i++) {
+      // 配列の要素を参照する (i番目の星)
+      var keyitem = keyitemList[i]; // i 番目の poly を取得
+
+      // 自機とi番目のアイテムの相対座標を求める
+      var point = player1.localToLocal(0, 0, keyitem);
+      // i番目の星と自機があたっているかを調べる
+      var isHit = keyitem.hitTest(point.x, point.y);
+
+      //当たっていればアイテムを消し、取得する
+      if(isHit == true){
+        keyitem.graphics.clear();
+        keyitemNumber++;
+      }
+    }
 
     /**
      * 当たり判定
@@ -186,7 +239,8 @@ window.addEventListener('load' , init);
     if (isHit_1||isHit_2||isHit_3||isHit_4||isHit_5||isHit_6||isHit_7||isHit_8
       ||isHit_9||isHit_10||isHit_11||isHit_12||isHit_13||isHit_14||isHit_15||isHit_16
       ||isHit_17||isHit_rect18||isHit_rect19||isHit_rect20||isHit_21||isHit_rect22||isHit_rect23||isHit_rect24) {
-          player1.graphics.beginFill("red").drawRect(0, 0, 20,10);
+          //player1.graphics.beginFill("red").drawRect(0, 0, 20,10);
+          location = "result-screen.html"
     }
     
       /*
