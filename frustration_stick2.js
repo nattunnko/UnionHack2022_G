@@ -9,6 +9,18 @@ window.addEventListener('load' , init);
       const keyitem_color ="#000000"
       var star_html = document.getElementById('star-item'); 
 
+      var timerVariable = setInterval(countUpTimer, 1000);
+      var totalSeconds = localStorage.getItem("timer");
+
+    function countUpTimer() {
+        ++totalSeconds;
+        var hour = Math.floor(totalSeconds / 3600);
+        var minute = Math.floor((totalSeconds - hour * 3600) / 60);
+        var seconds = totalSeconds - (hour * 3600 + minute * 60);
+        document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+        localStorage.setItem("timer",totalSeconds);
+    }
+
       /**
      * ゴール判定
      * by　参木
@@ -60,9 +72,7 @@ window.addEventListener('load' , init);
     //配列に保存
     keyitemList = [keyitem1,keyitem2,keyitem3];
 
-     //ステータス画面に現在とった星の数を表示
-    
-     document.getElementById("star").insertAdjacentHTML('beforeend',String(keyitemNumber));
+     
    
 
       function handleTick(){
@@ -271,20 +281,19 @@ window.addEventListener('load' , init);
     var point_rect24 = rect24.globalToLocal(stage.mouseX, stage.mouseY);
     var isHit_rect24 = rect24.hitTest(point_rect24.x, point_rect24.y);
 
-    var point_edge1 = edge1.globalToLocal(stage.mouseX, stage.mouseY);
-    var isHit_edge1 = edge1.hitTest(point_edge1.x, point_edge1.y);
+    
 
-    var point_edge2 = edge2.globalToLocal(stage.mouseX, stage.mouseY);
-    var isHit_edge2 = edge2.hitTest(point_edge2.x, point_edge2.y);
+    //var point_edge2 = edge2.globalToLocal(stage.mouseX, stage.mouseY);
+    //var isHit_edge2 = edge2.hitTest(point_edge2.x, point_edge2.y);
 
-    var point_edge4 = edge4.globalToLocal(stage.mouseX, stage.mouseY);
-    var isHit_edge4 = edge4.hitTest(point_edge4.x, point_edge4.y);
+    //var point_edge4 = edge4.globalToLocal(stage.mouseX, stage.mouseY);
+    //var isHit_edge4 = edge4.hitTest(point_edge4.x, point_edge4.y);
     
     // あたっていれば
     if (isHit_1||isHit_2||isHit_3||isHit_4||isHit_5||isHit_6||isHit_7||isHit_8
       ||isHit_9||isHit_10||isHit_11||isHit_12||isHit_13||isHit_14||isHit_15||isHit_16
       ||isHit_17||isHit_rect18||isHit_rect19||isHit_rect20||isHit_21||isHit_rect22||isHit_rect23||isHit_rect24
-      ||isHit_edge1||isHit_edge2||isHit_edge4) {
+      ) {
           //player1.graphics.beginFill("red").drawRect(0, 0, 20,10);
           location = "result-screen.html"
     }

@@ -2,7 +2,7 @@
     background-color: #000;
     width: 800px;
     height: 600px;
-    position: static;
+    position: relative;
 }
 
 .status{
@@ -12,7 +12,7 @@
     height: 600px;
     font-size: 30px;
     position: absolute;
-    right: 0px;
+    left: 806px;
     top: 0px;
 }
 
