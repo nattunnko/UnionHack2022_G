@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <mate charset='utf-8'>
+  <title>start-screen</title>
+  <link rel="stylesheet" href="goal-screen.css">
+</head>
+<body class="back" background="unknown.png">
+  <div class = "clear">
+    <p>CLEAR!</p>
+  </div>
+
+  <div class="time">
+    <!-- 経過時間 -->
+    <p id =timer>0:0:0</p>
+  </div>
+
+  <script>
+    var totalSeconds = localStorage.getItem("timer");
+    var hour = Math.floor(totalSeconds / 3600);
+    var minute = Math.floor((totalSeconds - hour * 3600) / 60);
+    var seconds = totalSeconds - (hour * 3600 + minute * 60);
+    document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+  </script>
+    <button class="button" onclick="location.href='./start-screen.html'">RESTART</button>
+</body>
+</html>
